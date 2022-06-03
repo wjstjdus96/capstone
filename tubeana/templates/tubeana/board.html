@@ -1,0 +1,249 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Dashboard</title>
+
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{%static 'assets/favicon.ico'%}"
+    />
+
+    <!-- Custom fonts for this template-->
+    <link
+      href="{%static 'vendor/fontawesome-free/css/all.min.css'%}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+
+    <!-- Custom styles for this template-->
+    <link href="{%static 'css/board.css'%}" rel="stylesheet" />
+  </head>
+
+  <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Topbar -->
+          <nav class="navbar navbar-light bg-white static-top">
+            <a class="navbar-brand" href="/tubeana">YouTube comment analysis</a>
+          </nav>
+          <!-- End of Topbar -->
+
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <!-- Page Heading -->
+            <div
+              class="d-sm-flex align-items-center justify-content-center mb-4"
+            >
+                <img class="thumbnail" src="{{ thumbnail }}" />
+              <h1 class="h3 mb-0 text-gray-800 font-weight-bold">
+                {{title}} 의 분석결과 <p class="ml-2 pt-2" style="font-size: 30px">&#129300;</p>
+              </h1>
+
+            </div>
+
+            <!-- Content 1 Row -->
+            <div class="row">
+              <!-- 긍정부정 댓글 비율 -->
+              <div class="col-xl-4 col-lg-5">
+                <div class="card shadow mb-4">
+                  <!-- Card Header-->
+                  <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+                  >
+                    <h6 class="m-0 font-weight-bold text-primary">
+                      긍정 부정 댓글 비율
+                    </h6>
+                  </div>
+                  <!-- Card Body -->
+                  <div class="card-body">
+                    <div class="chart-pie pt-4 pb-2">
+                      <canvas id="myPieChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-center small">
+                      <span class="mr-2">
+                        <i class="fas fa-circle text-primary"></i> 긍정
+                      </span>
+                      <span class="mr-2">
+                        <i class="fas fa-circle text-success"></i> 부정
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 긍부정 댓글 top5 -->
+              <div class="col-xl-8 col-lg-7">
+                <div class="card shadow mb-4">
+                  <!-- Card Header -->
+                  <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+                  >
+                    <h6 class="m-0 font-weight-bold text-primary">
+                      긍정 부정 댓글 Top5
+                    </h6>
+                  </div>
+                  <!-- Card Body -->
+                  <div class="card-body">
+                    <!--긍정 부정 선택-->
+                    <div class="selected-char">
+                      <input
+                        type="radio"
+                        name="commentChar"
+                        class="selected-char1"
+                        id="positive"
+                        value="positive"
+                        checked="checked"
+                      /><label for="positive"><span></span> 긍정 </label>
+                      <input
+                        type="radio"
+                        name="commentChar"
+                        class="selected-char1"
+                        id="negative"
+                        value="negative"
+                      /><label for="negative"><span></span> 부정 </label>
+                    </div>
+                    <!--댓글 표시-->
+                    <div class="selected-comment">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th width="10">top</th>
+                            <th>댓글 내용</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>1</td>
+                            <td id="topCmt1"></td>
+                          </tr>
+                          <tr>
+                            <td>2</td>
+                            <td id="topCmt2"></td>
+                          </tr>
+                          <tr>
+                            <td>3</td>
+                            <td id="topCmt3"></td>
+                          </tr>
+                          <tr>
+                            <td>4</td>
+                            <td id="topCmt4"></td>
+                          </tr>
+                          <tr>
+                            <td>5</td>
+                            <td id="topCmt5"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--Content 2 Row -->
+            <div class="row">
+              <!--빈도수 높은 키워드 top10-->
+              <div class="col-xl-auto">
+                <div class="card shadow mb-4">
+                  <!--Card header-->
+                  <div
+                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+                  >
+                    <h6 class="m-0 font-weight-bold text-primary">
+                      빈도수 높은 키워드 상위 top10
+                    </h6>
+                  </div>
+                  <!--Card body-->
+                  <div class="card-body">
+                    <div
+                      id="my_favorite_latin_words"
+                      style="
+                        width: 500px;
+                        height: 250px;
+                        border: 1px solid rgb(255, 255, 255);
+                      "
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright &copy; Your Website 2022</span>
+            </div>
+          </div>
+        </footer>
+        <!-- End of Footer -->
+      </div>
+      <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!--데이터 받음-->
+    <input type="hidden" id="percent" value="{{ percent }}"/>
+    <input type="hidden" id="top5_text" value="{{ top5_text }}"/>
+    <input type="hidden" id="low5_text" value="{{ low5_text }}"/>
+    <input type="hidden" id="keyword" value="{{ keyword }}"/>
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{%static 'vendor/jquery/jquery.min.js'%}"></script>
+    <script src="{%static 'vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{%static 'vendor/jquery-easing/jquery.easing.min.js'%}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{%static 'js/board.min.js'%}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{%static 'vendor/chart.js/Chart.min.js'%}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{%static 'js/graph/chart-area.js'%}"></script>
+    <script type="text/javascript" src="{%static 'js/graph/chart-pie.js'%}"></script>
+
+    <!--긍정부정 댓글 설정-->
+    <script type="text/javascript" src="{%static 'js/getTopComment.js'%}"></script>
+
+    <!--워드클라우드 단어 설정-->
+    <script
+      type="text/javascript"
+      src="{%static 'js/getWordCloud.js'%}"
+    ></script>
+    <!-- 워드클라우드 -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+    <script src="{%static 'js\graph\jqcloud-0.2.10.js'%}"></script>
+
+  </body>
+</html>
